@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>AppliedSystems.Messaging.Messages</name>
+    </assembly>
+    <members>
+        <member name="T:AppliedSystems.Messaging.Messages.IEvent">
+            <summary>
+            Marks a message that represents a completed action.
+            Must be added to any event classes in order to be dispatched or handled by the infrastructure.  
+            </summary>
+            <remarks>Usually these are named in the past tense e.g.<example>OrderPlaced</example>, 
+            and contrasts with other message types such as command <see cref="T:AppliedSystems.Messaging.Messages.ICommand"/> 
+            which represents an action to execute, and request <see cref="T:AppliedSystems.Messaging.Messages.IRequest"/>
+            and response <see cref="T:AppliedSystems.Messaging.Messages.IResponse"/> which represent a query for information and 
+            the resulting information returned</remarks>
+        </member>
+    </members>
+</doc>

@@ -1,0 +1,60 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>AppliedSystems.Configuration</name>
+    </assembly>
+    <members>
+        <member name="M:AppliedSystems.Configuration.ConfigurationReader.Read``1">
+            <summary>
+            Reads a section of configuration from app.config into type of the same name as that section 
+            </summary>
+            <remarks>
+            In app.config the section must have a section entry in configSections with the name set appropriately
+            and the type set to "AppliedSystems.Configuration.XmlSerializerSectionHandler, AppliedSystems.Configuration".
+            
+            Only elements can be used to populate their namesake in the specified configuration section type, 
+            attributes will not be populated.
+            
+            The config element names are case sensitive and must match the naming in the specified configuration section type.
+            This therefore deviates from the standard camel-cased config naming.
+            </remarks>
+            <typeparam name="T">Type to read configuration section into</typeparam>
+        </member>
+        <member name="M:AppliedSystems.Configuration.ConfigurationReader.ReadFromExternalAppDomain``1">
+            <summary>
+            Reads a section of configuration from an external config into type of the same name as that section.
+            The config file that will be used is expected to be in the same location as the dll which T comes from.
+            The file should have the same name as the dll from which T comes, with '.config' appended to the end
+            </summary>
+            <remarks>
+            In external config the section must have a section entry in configSections with the name set appropriately
+            and the type set to "AppliedSystems.Configuration.XmlSerializerSectionHandler, AppliedSystems.Configuration".
+            
+            Only elements can be used to populate their namesake in the specified configuration section type, 
+            attributes will not be populated.
+            
+            The config element names are case sensitive and must match the naming in the specified configuration section type.
+            This therefore deviates from the standard camel-cased config naming.
+            </remarks>
+            <typeparam name="T">Type to read configuration section into</typeparam>
+        </member>
+        <member name="M:AppliedSystems.Configuration.ConfigurationReader.ReadFromSpecifiedConfigurationFile``1(System.String)">
+            <summary>
+            Reads a section of configuration from a specific config into type of the same name as that section.
+            The config file that will be used is the one specified
+            </summary>
+            <remarks>
+            In external config the section must have a section entry in configSections with the name set appropriately
+            and the type set to "AppliedSystems.Configuration.XmlSerializerSectionHandler, AppliedSystems.Configuration".
+            
+            Only elements can be used to populate their namesake in the specified configuration section type, 
+            attributes will not be populated.
+            
+            The config element names are case sensitive and must match the naming in the specified configuration section type.
+            This therefore deviates from the standard camel-cased config naming.
+            </remarks>
+            <typeparam name="T">Type to read configuration section into</typeparam>
+            <param name="configFile">The file to read the specified configuration from</param>
+        </member>
+    </members>
+</doc>

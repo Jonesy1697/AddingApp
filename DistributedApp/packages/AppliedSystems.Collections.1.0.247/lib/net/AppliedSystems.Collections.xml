@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>AppliedSystems.Collections</name>
+    </assembly>
+    <members>
+        <member name="F:AppliedSystems.Collections.Constants.NotFound">
+            <summary>
+            Constant which indicates that an element was not found in a collection.
+            </summary>
+        </member>
+        <member name="M:AppliedSystems.Collections.EnumerableExtensions.SequenceInvariantHashCode``1(System.Collections.Generic.IEnumerable{``0})">
+            <summary>
+            Extension method which generates a hascode from the elements of a sequence. 
+            The hashcode generated will be the same if the sequences contain the same 
+            elements regardless of the order.
+            </summary>
+            <typeparam name="T">The type of the elements in the sequence.</typeparam>
+            <param name="seq">The sequence to generate the hashcode of.</param>
+            <returns>A hashcode based on the elements in the sequence, independent of the order of the elements.</returns>
+        </member>
+        <member name="M:AppliedSystems.Collections.EnumerableExtensions.SequenceHashCode``1(System.Collections.Generic.IEnumerable{``0})">
+            <summary>
+            Extension method which generates a hascode from the elements of a sequence. 
+            The hashcode generated will be different if the sequences contain the same 
+            elements but in a different order.
+            </summary>
+            <typeparam name="T">The type of the elements in the sequence.</typeparam>
+            <param name="seq">The sequence to generate the hashcode of.</param>
+            <returns>A hashcode based on the elements and their order in the sequence.</returns>
+        </member>
+        <member name="M:AppliedSystems.Collections.EnumerableExtensions.ExistsAndIsNotEmpty``1(System.Collections.Generic.IEnumerable{``0})">
+            <summary>
+            Extension method that determines if a sequence is not null and contains elements.
+            </summary>
+            <returns>True, if the collection is not null and not empty; False otherwise.</returns>
+        </member>
+        <member name="M:AppliedSystems.Collections.EnumerableExtensions.DoesNotExistsOrIsEmpty``1(System.Collections.Generic.IEnumerable{``0})">
+            <summary>
+            Extension method that determines if a sequence is either null or contains no elements.
+            </summary>
+            <returns>True, if the collection is either null or empty; False otherwise.</returns>
+        </member>
+    </members>
+</doc>

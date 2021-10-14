@@ -1,0 +1,193 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>AppliedSystems.Messaging.Infrastructure</name>
+    </assembly>
+    <members>
+        <member name="T:AppliedSystems.Messaging.Infrastructure.Bootstrapping.MessagingFramework">
+            <summary>
+            The messaging framework bootstrapping entry point
+            </summary>
+        </member>
+        <member name="M:AppliedSystems.Messaging.Infrastructure.Bootstrapping.MessagingFramework.Bootstrap">
+            <summary>
+            Returns a bootstrapping provider for configuring messaging
+            </summary>
+            <returns>The <see cref="T:AppliedSystems.Messaging.Infrastructure.Bootstrapping.MessagingConfiguration"/> bootstrapping provider</returns>
+        </member>
+        <member name="T:AppliedSystems.Messaging.Infrastructure.Bootstrapping.MessagingConfiguration">
+            <summary>
+            Bootstrapping provider for configuring messaging
+            </summary>
+        </member>
+        <member name="P:AppliedSystems.Messaging.Infrastructure.Events.Outgoing.IEventDispatchingEndpoint.EndpointBuilderType">
+            <summary>
+            This type must derive from IEventDispatchingEndpointBuilder/>
+            </summary>
+        </member>
+        <member name="T:AppliedSystems.Messaging.Infrastructure.Events.EventReceivingContext">
+            <summary>
+            Provides access to event receiving actions such as event subscription
+            </summary>
+            <remarks>
+            Subscription enables the receipt of <see cref="T:AppliedSystems.Messaging.Messages.IEvent"/> objects from a particular stream, the location of that stream
+            residing possibly remotely.
+            A stream represents an ordered contiguous set of events identified by a name. For example it could be a set of events
+            for a particular customer, the name being perhaps "customer-a" 
+            </remarks>
+        </member>
+        <member name="M:AppliedSystems.Messaging.Infrastructure.Events.EventReceivingContext.#ctor(AppliedSystems.Messaging.Infrastructure.Events.ISubscriptionClient)">
+            <summary>
+            Gets a list of the type of events that are currently routed to handlers in the current process
+            </summary>
+        </member>
+        <member name="M:AppliedSystems.Messaging.Infrastructure.Events.EventReceivingContext.Subscribe(System.String)">
+            <summary>
+            Subscribe and thus start receiving events from a specific stream
+            </summary>
+            <param name="streamName">Name of the stream to subscribe to</param>
+        </member>
+        <member name="M:AppliedSystems.Messaging.Infrastructure.Events.EventReceivingContext.Unsubscribe(System.String)">
+            <summary>
+            Unsubscribe and thus stop receiving events from a specific stream
+            </summary>
+            <param name="streamName">Name of stream to unsubscribe from</param>
+        </member>
+        <member name="T:AppliedSystems.Messaging.Infrastructure.Events.IEventDispatcher">
+            <summary>
+            Used to dispatch an <see cref="T:AppliedSystems.Messaging.Messages.IEvent"/> to an endpoint where it will be handled by an <see cref="T:AppliedSystems.Messaging.Infrastructure.Events.IEventHandler`1"/>
+            </summary>
+            <remarks>
+            The <see cref="T:AppliedSystems.Messaging.Messages.IEvent"/> could be dispatched to an <see cref="T:AppliedSystems.Messaging.Infrastructure.Events.IEventHandler`1"/> either
+            in the current process or into another one depending upon the current configuration.
+            </remarks>
+        </member>
+        <member name="M:AppliedSystems.Messaging.Infrastructure.Events.IEventDispatcher.Raise``1(``0,System.Nullable{System.Guid},System.Nullable{System.Guid})">
+            <summary>
+            Raise the specified event, effectively dispatching it to an endpoint where it will be handled by an <see cref="T:AppliedSystems.Messaging.Infrastructure.Events.IEventHandler`1"/>
+            </summary>
+            <typeparam name="TEvent">The type of <see cref="T:AppliedSystems.Messaging.Messages.IEvent"/> to dispatch</typeparam>
+            <param name="message">The <see cref="T:AppliedSystems.Messaging.Messages.IEvent"/> to dispatch</param>
+            <param name="id">Identifier of the <see cref="T:AppliedSystems.Messaging.Messages.IEvent"/>. If not specified one will be generated.</param>
+            <param name="correlationId">Correlation identifier of the <see cref="T:AppliedSystems.Messaging.Messages.IEvent"/>. If not specified then the current 
+            correlation will be used, this is set by a previously sent message that results in the current one being sent.
+            If neither of those is the case one will be generated.</param>
+        </member>
+        <member name="T:AppliedSystems.Messaging.Infrastructure.Events.IEventDispatcherSelector">
+            <summary>
+            Selects a set of <see cref="T:AppliedSystems.Messaging.Infrastructure.Events.IEventDispatcher"/> to dispatch
+            </summary>
+        </member>
+        <member name="M:AppliedSystems.Messaging.Infrastructure.Events.IEventDispatcherSelector.GetDispatchersForEvent(AppliedSystems.Messaging.Messages.IEvent)">
+            <summary>
+            Get a set of <see cref="T:AppliedSystems.Messaging.Infrastructure.Events.IEventDispatcher"/> that will be used to dispatch the specified <see cref="T:AppliedSystems.Messaging.Messages.IEvent"/>
+            </summary>
+            <param name="message">The <see cref="T:AppliedSystems.Messaging.Messages.IEvent"/> to get dispatchers for in order to send it</param>
+            <returns>Set of <see cref="T:AppliedSystems.Messaging.Infrastructure.Events.IEventDispatcher"/> to dispatch for the given event</returns>
+        </member>
+        <member name="T:AppliedSystems.Messaging.Infrastructure.Events.NoDispatcherFoundForEventException">
+            <summary>
+            Occurs when no dispatcher has been found by a <see cref="T:AppliedSystems.Messaging.Infrastructure.Events.IEventDispatcher"/> for a specific <see cref="T:AppliedSystems.Messaging.Messages.IEvent"/>
+            </summary>
+        </member>
+        <member name="T:AppliedSystems.Messaging.Infrastructure.Events.NoHandlerFoundForEventException">
+            <summary>
+            Occurs when no <see cref="T:AppliedSystems.Messaging.Infrastructure.Events.IEventHandler`1"/> has been found in order to process an <see cref="T:AppliedSystems.Messaging.Messages.IEvent"/>
+            </summary>
+        </member>
+        <member name="T:AppliedSystems.Messaging.Infrastructure.Events.IEventHandler`1">
+            <summary>
+            Handles an <see cref="T:AppliedSystems.Messaging.Messages.IEvent"/>. Implement this in order to process a received <see cref="T:AppliedSystems.Messaging.Messages.IEvent"/>
+            </summary>
+            <typeparam name="TEvent">Type of the <see cref="T:AppliedSystems.Messaging.Messages.IEvent"/> to handle</typeparam>
+            <remarks>
+            Handling and event occurs once an <see cref="T:AppliedSystems.Messaging.Messages.IEvent"/> is received originating from a dispatch from 
+            an <see cref="T:AppliedSystems.Messaging.Infrastructure.Events.IEventDispatcher"/> situated in the current process or in another process, this being determined 
+            by the current messaging configuration
+            </remarks>
+        </member>
+        <member name="M:AppliedSystems.Messaging.Infrastructure.Events.IEventHandler`1.Handle(`0)">
+            <summary>
+            Handle the specified <see cref="T:AppliedSystems.Messaging.Messages.IEvent"/>
+            </summary>
+            <param name="message">The <see cref="T:AppliedSystems.Messaging.Messages.IEvent"/> to handle</param>
+        </member>
+        <member name="P:AppliedSystems.Messaging.Infrastructure.Commands.Outgoing.ICommandDispatchingEndpoint.EndpointBuilderType">
+            <summary>
+            This type must derive from ICommandDispatchingEndpointBuilder/>
+            </summary>
+        </member>
+        <member name="P:AppliedSystems.Messaging.Infrastructure.Receiving.IReceivingEndpoint.EndpointBuilderType">
+            <summary>
+            This type must derive from IReceivingEndpointBuilder/>
+            </summary>
+        </member>
+        <member name="P:AppliedSystems.Messaging.Infrastructure.Receiving.IReceivingEndpoint.Names">
+            <summary>
+            Names of connection associated with the subscription client
+            </summary>
+        </member>
+        <member name="P:AppliedSystems.Messaging.Infrastructure.Receiving.IReceivingEndpoint.EventIndexStoreType">
+            <summary>
+            This type must derive from IEventIndexStore/>
+            </summary>
+        </member>
+        <member name="P:AppliedSystems.Messaging.Infrastructure.Receiving.IReceivingEndpoint.TransactionProviderType">
+            <summary>
+            This type must derive from IDbTransactionProvider
+            </summary>
+        </member>
+        <member name="T:AppliedSystems.Messaging.Infrastructure.Receiving.IMessageReceiver">
+            <summary>
+            Provides a way of controlling the lifecycle of <see cref="T:AppliedSystems.Messaging.Infrastructure.Message"/> reception
+            </summary>
+            <remarks>
+            <see cref="T:AppliedSystems.Messaging.Infrastructure.Message"/> reception is the process of retreiving <see cref="T:AppliedSystems.Messaging.Infrastructure.Message"/> objects sent to 
+            the endpoint by some remote dispatch mechanism resulting in handlers being invoked for its payload, that being
+            a <see cref="T:AppliedSystems.Messaging.Messages.ICommand"/>, 
+            <see cref="T:AppliedSystems.Messaging.Messages.IEvent"/>, or
+            <see cref="T:AppliedSystems.Messaging.Messages.IRequest"/>
+            </remarks>    
+        </member>
+        <member name="P:AppliedSystems.Messaging.Infrastructure.Receiving.IMessageReceiver.OnExceptionCallback">
+            <summary>
+            Callback invoked when an error occurs when receiving a <see cref="T:AppliedSystems.Messaging.Infrastructure.Message"/>
+            </summary>
+        </member>
+        <member name="M:AppliedSystems.Messaging.Infrastructure.Receiving.IMessageReceiver.StartReceiving(System.Action{System.Exception,AppliedSystems.Core.NotRequired{AppliedSystems.Messaging.Infrastructure.Message}})">
+            <summary>
+            Start receiving messages sent to this endpoint
+            </summary>
+            <param name="onExceptionCallback">Callback to invoke when an error occurs when receiving a <see cref="T:AppliedSystems.Messaging.Infrastructure.Message"/></param>
+        </member>
+        <member name="M:AppliedSystems.Messaging.Infrastructure.Receiving.IMessageReceiver.StopReceiving">
+            <summary>
+            Stop receiving messages sent to this endpoint
+            </summary>
+        </member>
+        <member name="P:AppliedSystems.Messaging.Infrastructure.Requests.Outgoing.InProcess.IRequestDispatchingEndpoint.EndpointBuilderType">
+            <summary>
+            This type must derive from IRequestDispatchingEndpointBuilder/>
+            </summary>
+        </member>
+        <member name="T:AppliedSystems.Messaging.Infrastructure.MessageReceivingContext">
+            <summary>
+            Provides access to message receiving actions, such as reception lifecycle handling and event subscription
+            </summary>
+        </member>
+        <member name="T:AppliedSystems.Messaging.Infrastructure.Message">
+            <summary>
+            Envelope for a message and its associated headers used to transport it in between its point of dispatch
+            and its point of receipt where it's payload will be handled. 
+            </summary>
+            <remarks>
+            The Payload should be a
+            <see cref="T:AppliedSystems.Messaging.Messages.ICommand"/>, an
+            <see cref="T:AppliedSystems.Messaging.Messages.IEvent"/>, a
+            <see cref="T:AppliedSystems.Messaging.Messages.IRequest"/> or a
+            <see cref="T:AppliedSystems.Messaging.Messages.IResponse"/>.
+            The headers contain information related to the message its self but not related to the intention of the payload. Message meta-data in effect. Correlation identifier, for example
+            </remarks>
+        </member>
+    </members>
+</doc>

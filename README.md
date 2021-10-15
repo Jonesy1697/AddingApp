@@ -28,9 +28,9 @@ No further installation steps are required, builds are completed in VisualStudio
 Further editing can be performed through VisualStudio. Tests have been attached to the solution, in the .Testing project libraries, and these SpecFlow tests can also be added to in VisualStudio.
 
 ## Built with
-* [Visual Studio] (https://visualstudio.microsoft.com/)
-* [C#] (https://docs.microsoft.com/en-us/dotnet/csharp/)
-* [SpecFlow] (https://specflow.org/)
+* [Visual Studio](https://visualstudio.microsoft.com/) - Microsoft Integrated Development Environment
+* [C#](https://docs.microsoft.com/en-us/dotnet/csharp/) - Application programming language
+* [SpecFlow](https://specflow.org/) - Automated unit testing tools
 
 ## Authors
 ***Christopher Jones***
